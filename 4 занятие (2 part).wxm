@@ -1,0 +1,47 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+ratprint:false;
+eq:[ε=x-y,v=ε*Kr*p/(w0^2+p^2),y=v*S(p)];
+sln:solve(eq,[y,ε,v]);
+V1:y,sln;
+V2:A*sin(w0*t+ψ0);
+V3:laplace(V2,t,p);
+V4:V1,x=V3;  /*Переходная характеристика*/
+V5:V4*(w0^2+p^2)/w0;
+V6:p=%i*w0;
+V7:factor(V5),V6;
+V7A:trigreduce(cabs(V7));
+V7P:carg(V7);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num:[A=1.5,w0=300,ψ0=-0.1,τ=0.01,Kr=2000000]; 
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V8:S(p)=1/(τ*p+1);
+V9:factor(V4),V8;
+V9n:V9,Num;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V10:ilt(V9n,p,t);
+load("coma");
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V11:nilt(V9n,p,t);
+V12:V2,Num;
+wxplot2d([V11,V12],[t,0,0.1]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
