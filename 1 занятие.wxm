@@ -1,0 +1,46 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+V1:A*sin(w*t+phi0);
+V2:sin(w*t);
+V3:cos(w*t);
+VS:trigreduce(V1*V2);
+V4:trigreduce(V1*V3);
+PF:sum(b[n]*p^n,n,0,2)/sum(a[n]*p^n,n,0,2); /*Передаточная функция в общем виде*/
+CP:p=%i*w;
+PFC:PF,CP;  /*КЧХ*/
+PFC0:PFC,w=0;
+PFC1:limit(PFC,w,inf);
+UR1:[PFC0=1,PFC1=1];
+R1:solve(UR1,[a[2],b[0]]);
+PFC1:PFC,R1;
+PFC2:factor(cabs(PFC1^2));
+PFC3:PFC2,w=Ω;
+R2:solve(PFC3,a[0]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PFC11:PFC,w=Ω;
+PFC12:factor(cabs(PFC11^2));
+PFC13:solve(PFC12,a[0]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PFC21:realpart(PFC1);
+PFC22:imagpart(PFC1);
+R4:solve([PFC21=0,PFC22=0],[b[1],b[2]]);
+R5:R4[3];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PFC3:PFC1,R5;
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
