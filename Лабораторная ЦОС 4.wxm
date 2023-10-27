@@ -1,0 +1,99 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+F1(M):=block
+(
+    [i],
+    M[1]:makelist(0,i,M[1]),
+    M[2]:makelist(0,i,1,length(M[2])),
+    M[4]:makelist(0,i,1,length(M[4])),
+        for i:1 thru length(M[3]) do 
+                (
+            M[3][i]:0
+        )    
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1:[[a,b],[0,1,1],[q+d,-5,2],[1,1]];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+F1(V1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CF:[[x_1,x_2],[Cx_1,Cx_2],[y_1,y_2],[Cy_1,Cy_2]];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+F1(CF);
+CF;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+F2(M,x):=block(
+    [Acc,Nx,Ny,X,Y,Cx,Cy,i],
+    Acc:0,
+    M[1,1]:x, /*Вход х*/
+    M[4,1]:0,
+    Nx:length(M[1]),
+    Ny:length(M[3]),
+    X:M[1],
+    Cx:M[2],
+    Y:M[3],
+    Cy:M[4],
+    for i:1 thru Ny do (
+        Acc:Acc+Y[i]*Cy[i],
+        M[3][1]:Acc,
+        M[3][2]:M[3][1],
+        M[1][2]:M[1][1]
+    )
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CF1:[[0,0],[0,0],[1,2],[3,4]];
+F2(CF1,1);
+CF1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+F3(M,n):=block(
+    [Q,i],
+    Q:makelist(0,i,1,n),
+    F4:M,
+    for i:1 thru n do (
+        F2(M,1),
+        Q[i]:M[3][1]
+    ),
+    Q    
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+F3(CF1,5);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
