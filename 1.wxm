@@ -1,0 +1,159 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Eq:[
+    ε=Uz(p)-U,
+    R=ε*(Kp+Ki/p),
+    U=1/(τ*p+1)*R
+];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sln:solve(Eq,[ε,U,R]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1:U,sln;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V2:V1,p=0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V3:V1,Uz(p)=1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V4:V1,Uz(p)=A/p;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V5:ilt(V4,p,t);
+/* [wxMaxima: input   end   ] */
+/* [wxMaxima: question  start ] */
+Question #2
+/* [wxMaxima: question  end   ] */
+/* [wxMaxima: answer  start ] */
+V5:ilt(V4,p,t);
+/* [wxMaxima: answer  end   ] */
+/* [wxMaxima: question  start ] */
+Question #3
+/* [wxMaxima: question  end   ] */
+/* [wxMaxima: answer  start ] */
+p
+;
+/* [wxMaxima: answer  end   ] */
+/* [wxMaxima: question  start ] */
+<math><st>Is </st><mn>4</mn><h>*</h><mi>Ki</mi><h>*</h><mi>τ</mi><mi>-</mi><msup><mrow><mrow><p><mi>Kp</mi><mi>+</mi><mn>1</mn></p></mrow></mrow><mn>2</mn></msup><st> positive, negative or zero?</st></math>
+/* [wxMaxima: question  end   ] */
+/* [wxMaxima: answer  start ] */
+z;
+/* [wxMaxima: answer  end   ] */
+/* [wxMaxima: question  start ] */
+Question #1
+/* [wxMaxima: question  end   ] */
+/* [wxMaxima: answer  start ] */
+z;
+/* [wxMaxima: answer  end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V6:p=%i*2*%pi*f;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num:[τ=0.1,Kp=0.1,Ki=10,A=5];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V7:V3,V6; /*Комплексно-частотная характеристика*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V7r:(realpart(V7));
+V7i:factor(imagpart(V7));
+V7A:factor(cabs(V7));/*АЧХ*/
+V7p:carg(V7);/*ФЧХ*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V8A:V7A,Num;
+V8P:V7p,Num;
+V8R:V7r,Num;
+V8I:V7i,Num;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Diap:[f,0,10];
+wxplot2d([V8R,V8I],Diap);
+wxplot2d(V8A,Diap);/*АЧХ*/
+wxplot2d(V8P,Diap);/*ФЧХ*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V9:V4,Num;/*Переходная характ. с числ. парам.*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V10:ilt(V9,p,t);
+wxplot2d(V10,[t,0,10]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num1:Num,Kp=Kp1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V11:V4,Num1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V12:[-0.1,0,0.1,0.2,0.5];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V13:makelist(Kp=i,i,V12);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V14:makelist(subst(i,V11),i,V13);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V15:makelist(ilt(i,p,t),i,V14);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d(V15,[t,0,2],[legend,false]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
