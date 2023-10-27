@@ -1,0 +1,24 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all); /*Пропорционально резонансный регулятор*/
+cabs(1/(p)),p=%i*w;
+V1:Kr/(p^2+w0^2); /*Резонансный регулятор ...*/
+V2:p=%i*w;
+V3:V1,V2;
+V4:factor(cabs(V3));
+V5:Kr*p/(p^2+w0^2);  /*Резонансный регулятор ...*/
+V6:V5,V2;
+V7:factor(cabs(V6));
+V8:[V4,V7],[w0=1,Kr=1];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d(V8,[w,0,3],[y,0,10]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
