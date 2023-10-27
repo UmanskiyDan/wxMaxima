@@ -1,0 +1,126 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+eq:[
+        -E+iR1*R1+iC/(p*C),
+        /*1 контур*/-iC/(p*C)+iR2*R2,
+        /*2 контур*/iR1-iC-iR2,
+        /*Узел 1*/Un=iR2*R2
+]$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sln:solve(eq,[iR1,iR2,iC,Un])$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1:Un,sln$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V2:p=2*fd*((z-1)/(z+1))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V3:factor(V1),V2$ /*Передаточная функция*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V31:factor(V3),z=1/zm$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V3d:expand(denom(V31))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V3n:expand(num(V31))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CD1:makelist(coeff(V3d,z,i),i,0,1)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V3d1:collectterms(V3d,z)$ /*Подобные слагаемые*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CN1:makelist(coeff(V3n,z,i),i,0,1)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V3n1:collectterms(V3n,z)$ /*Подобные слагаемые*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CD2:makelist(i/CD1[1],i,CD1)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CN2:makelist(i/CD1[1],i,CN1)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num:[E=3.3,R1=10,R2=100,C=300e-6,fd=5e3]$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CD3:float(CD2),Num;CN3:float(CN2),Num$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+X:[0,0]$Y:[0,0]$CY:CD3$CX:CN3$CY[1]:0$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+out:makelist(0,i,1,50)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+for i:1 thru length(out) do (
+    Acc:0,X[1]:1,
+    for j:1 thru length(X) do (
+        Acc:Acc+CX[j]*X[j]
+    ),
+    for j:1 thru length(Y) do (
+        Acc:Acc-CY[j]*Y[j]
+    ),
+    Y[1]:Acc,
+    out[i]:[i,Acc],
+    Y[2]:Y[1],X[2]*X[1]
+)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+out$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([discrete,out])$
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
