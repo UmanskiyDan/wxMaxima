@@ -1,0 +1,150 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+V1:makelist(float(i/20),i,0,20);
+N:4;
+V2:makelist(float(floor(i*2^N))/2^N,i,V1);
+V3:makelist([i,float(floor(i*2^N)/2^N)],i,V1);
+wxplot2d([discrete,V3],[style,points]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: caption start ]
+
+   [wxMaxima: caption end   ] */
+/* [wxMaxima: image   start ]
+png
+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
+   [wxMaxima: image   end   ] */
+
+/* [wxMaxima: input   start ] */
+eq:[
+    -ε+iR1*R1+iC/(p*C),
+    -iC/(p*C)+iR2*R2,
+    iR1-iC-iR2,
+    Un=iR2*R2
+];
+sln:solve(eq,[iR1,iR2,iC,Un]);
+V1:Un,sln;
+V2:p=2*fd*(z-1)/(z+1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+/*Теория*/
+z=exp(%i*2*%pi*f); 
+p=2*%i*%pi*f;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V3:factor(V1),V2;
+V31:factor(V3),z=1/zm;
+V3d:expand(denom(V31));
+V3n:expand(num(V31));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CD1:makelist(coeff(V3d,zm,i),i,0,1); /*Коэффициенты полинома*/
+V3d1:collectterms(V3d,zm);
+CN1:makelist(coeff(V3n,zm,i),i,0,1); /*Коэффициенты полинома*/
+V3n1:collectterms(V3n,zm);
+CD2:makelist(i/CD1[1],i,CD1);
+CN2:makelist(i/CD1[1],i,CN1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num:[ε=3.3,R1=10,R2=100,C=300e-6,fd=5e3];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+CD3:float(CD2),Num;
+CN3:float(CN2),Num;
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+X:[0,0]$
+Y:[0,0]$
+CY:CD3$
+CX:CN3$
+CY[1]:0$
+Out:makelist(0,i,1,50)$
+for i:1 thru length(Out) do (
+    Acc:0,
+    X[1]:1,
+    for j:1 thru length(X) do (
+        Acc:Acc+CX[j]*X[j]
+    ),
+    for j:1 thru length(Y) do (
+        Acc:Acc-CY[j]*Y[j]
+    ),
+    Y[1]:Acc,
+    Out[i]:[i,Acc],
+    Y[2]:Y[1],
+    X[2]:X[1]
+);
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Out;
+wxplot2d([discrete,Out]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+N:4;
+FP(x):=float(floor(x*2^N)/2^N);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+FP(0.37);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+X:[0,0]$
+Y:[0,0]$
+CY:CD3$
+CX:CN3$
+CY[1]:0$
+Out:makelist(0,i,1,50)$
+for i:1 thru length(Out) do (
+    Acc:0,
+    X[1]:1,
+    for j:1 thru length(X) do (
+        Acc:Acc+FP(CX[j])*FP(X[j])
+    ),
+    for j:1 thru length(Y) do (
+        Acc:Acc-FP(CY[j])*FP(Y[j])
+    ),
+    Y[1]:Acc,
+    Out[i]:[i,Acc],
+    Y[2]:Y[1],
+    X[2]:X[1]
+);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Out;
+wxplot2d([discrete,Out]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
