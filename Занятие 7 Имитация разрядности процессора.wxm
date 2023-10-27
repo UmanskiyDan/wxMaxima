@@ -1,0 +1,20 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+/*Имитация ограниченной разрядности*/
+V1:0.8;
+V2:0.65;
+V3:V1*V2;
+N:16;
+Q1:floor(V1*2^N);
+Q2:floor(V2*2^N);
+Q3:Q1*Q2;
+Q4:floor(Q3/(2^N));
+Q5:float(Q4/(2^N));
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
