@@ -1,0 +1,169 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+eq:[
+-ε+iC/(p*C)+iε*(p*L)+iε*R2,
+-iC/(p*C)+iR1*R1,
+Un=iε*R2,
+iε-iR1-iC];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+sln:solve(eq,[iC,iε,iR1,Un]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1:Un,sln;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V2:V1,p=0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V3:p=%i*2*%pi*f;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V4:z=exp(%i*2*%pi*f/fd);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1n:expand(num(V1));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1d:expand(denom(V1));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Pn:hipow(V1n,p);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Pd:hipow(V1d,p);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Nu:solve(V1n,p);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Po:solve(V1d,p);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Dn:product((z-exp(subst(Nu[i],p)/fd)),i,1,length(Nu));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Dd:product((z-exp(subst(Po[i],p)/fd)),i,1,length(Po));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Dpf:k*Dn/Dd;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Dpfu:Dpf,z=1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Ur:Dpfu=V2;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Ko:solve(Ur,k);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+NDpf:factor(Dpf),Ko;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Nkch:V1,V3;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Dkch:NDpf,V4;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num:[fd=20e3,R1=10e3,R2=2,L=300e-6,C=200e-6,ε=3.3];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V10:Nkch,Num;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V11:Dkch,Num;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V10a:cabs(V10);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V11a:cabs(V11);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([V10a,V11a],[f,0,40e3]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num1:factor(rat(Num));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+NDpf,Num1;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+N1:subst(Num1,NDpf);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+N1d:denom(N1);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

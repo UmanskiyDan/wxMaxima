@@ -1,0 +1,92 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+/*Преобразование Лапласа от DQ преобразования*/
+kill(all);
+abdq:[d=α*s+β*c,q=α*c-β*s];
+dqab:[α=d*s+q*c,β=d*c-q*s];
+VS:s=sin(ω0*t);
+VC:c=cos(ω0*t);
+FT:[d=d(t),q=q(t),α=a(t),β=b(t)];
+abdqT:abdq,[FT,VS,VC];
+dqabT:dqab,[FT,VS,VC];
+abdqP:laplace(abdqT,t,p);
+dqabP:laplace(dqabT,t,p);
+PL:laplace(f(t),t,p);
+PLP:laplace(f(t),t,p)$PLP:PLP,p=p+%i*ω0;
+PLN:laplace(f(t),t,p)$PLN:PLN,p=p-%i*ω0;
+abdqP:abdqP,[a=a1,b=b1,d=d1,q=q1];
+dqabP:dqabP,[a=a2,b=b2,d=d2,q=q2];
+SUR:[subst(f=d2,PL)=(Dz(p)-subst(f=d1,PL)*R(p)),subst(f=q2,PL)=Qz(p)-subst(f=q1,PL)*R(p)];
+/* [wxMaxima: input   end   ] */
+/* [wxMaxima: question  start ] */
+Question #2
+/* [wxMaxima: question  end   ] */
+/* [wxMaxima: answer  start ] */
+p;
+/* [wxMaxima: answer  end   ] */
+/* [wxMaxima: question  start ] */
+Question #1
+/* [wxMaxima: question  end   ] */
+/* [wxMaxima: answer  start ] */
+positive;
+
+
+/* [wxMaxima: answer  end   ] */
+
+
+/* [wxMaxima: input   start ] */
+SURP:SUR,p=p+%i*ω0;
+SURN:SUR,p=p-%i*ω0;
+SURPN:append(SURP,SURN);
+dqabPR:subst(SURPN,abdqP);
+T2:subst(SURPN,dqabP);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PON:p=p-%i*ω0;
+POP:p=p+%i*ω0;
+UOU:[subst(f=a1,PL)=subst(f=a2,PL)*S(p),
+          subst(f=b1,PL)=subst(f=b2,PL)*S(p)];
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T4:subst(T2,UOU);
+T4P:T4,POP;
+T4N:T4,PON;
+T4PN:append(T4P,T4N);
+length(T4PN);
+T1:factor(subst(T4PN,abdqP));
+PS:[subst(f=d1,PL)=subst(f=q1,PL)];
+solve(T1,PS);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+USZ:[Dz(p)=D/p,Qz(p)=Q/p];
+URG:[R(p)=Kp+Ki/p];
+URS:append(USZ,URG);
+TRZ:subst(URS,T1);
+US:S(p),1/(τ*p+1);
+USP:US,POP;
+USN:US,PON;
+TK:factor(subst([USP,USN],TRZ));
+load("coma");
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num:[D=1.5,Q=0.1,τ=0.1,Kp=1,Ki=100,ω0=310];
+TKN:TK[1],Num;
+TKO:makelist(rhs(i),i,TKN);
+TKLI:makelist(nilt(i,p,t),i,TKO);
+wxplot2d(TKLI,[t,0,10])
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

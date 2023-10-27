@@ -1,0 +1,52 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+ratprint:false;
+V1:(p^2+(2*w0)^2)/(p+2*w0)^2; /*Режекторный фильтр*/
+V2:A*sin(w0*t +ψ0);/*входной сигнал*/
+V3:laplace(V2,t,p);
+Vs:sin(w0*t);/*генератор синуса*/
+Vc:cos(w0*t);/*генератор косинуса*/
+V2s:trigreduce(V2*Vs);/*блок умножения*/
+V2c:trigreduce(V2*Vc);
+Vsl:laplace(V2s,t,p);/*прямое преобразование лапласа*/
+Vcl:laplace(V2c,t,p);
+VSLF:factor(Vsl*V1); /*!!Фильтрация!!*/
+VCLF:factor(Vcl*V1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num:[w0=2*%pi*50, A=310, ψ0=-0.1];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+VSPN:VSLF,Num;
+VCPN:VCLF,Num;
+Vst:ilt(VSPN,p,t); /*Обратное преобразование Лапласа*/
+Vct:ilt(VCPN,p,t);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([Vst, Vct],[t,0,0.1]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+VA:sqrt(Vst^2+Vct^2)*2;
+wxplot2d([310,VA],[t,0,0.1]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+VP:atan2(Vst,Vct)-%pi/2;
+wxplot2d([0.1, VP],[t,0,0.1]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

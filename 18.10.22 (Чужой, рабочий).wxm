@@ -1,0 +1,246 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+abdq:[d=α*s + β*c, q=α*c-β*s ];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+dqab:[α=d*s+q*c, β=d*c-q*s];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+VS:s=sin(w0*t);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+VC:c=cos(w0*t);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+FT:[d=d(t),q=q(t),α=a(t),β=b(t)];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+abdqT:abdq, [FT,VS,VC];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+dqabT:dqab,[FT,VS,VC];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+abdqP:laplace(abdqT,t,p);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+dqabP:laplace(dqabT,t,p);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+abdqP:makelist(laplace(i,t,p),i,abdqT);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+dqabP:makelist(laplace(i,t,p),i,dqabT);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PL:laplace(f(t),t,p);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PLP:laplace(f(t),t,p)$PLP:PLP,p=p+%i*w0;
+/* [wxMaxima: input   end   ] */
+/* [wxMaxima: question  start ] */
+Question #1
+/* [wxMaxima: question  end   ] */
+/* [wxMaxima: answer  start ] */
+PLP:laplace(f(t),t,p),p=p+%i*w0;
+/* [wxMaxima: answer  end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PLN:laplace(f(t),t,p)$PLN:PLN,p=p+%iw0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+abdqP:abdqP,[a=a1,b=b1,d=d1,q=q1];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+dqabP:dqabP,[a=a2,b=b2,d=d2,q=q2];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+SUR:[subst(f=d2,PL)=(Dz(p)-subst(f=d1,PL))*R(p),subst(f=q2,PL)=(Qz(p)-subst(f=q1,PL))*R(p)];   /*Выражение для регулятора*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+SURP:SUR,p=p+%i*w0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+SURN:SUR,p=p-%i*w0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+SURPN:append(SURP,SURN);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T2:subst(SURPN,dqabP);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PON:p= p-%i*w0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+POP: p=p+%i*w0;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+UOU:[subst(f=a1,PL)=subst(f=a2,PL)*S(p),subst (f=b1,PL)=subst(f=b2,PL)*S(p)];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T4:subst(T2,UOU);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T4P:T4,POP;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T4N:T4,PON;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T4PN:append(T4P,T4N);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+length(T4PN);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T1:factor(subst(T4PN,abdqP));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+PS:[subst(f=d1,PL),subst(f=q1,PL)];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+T11:solve (T1,PS);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+USZ: [Dz(p)=D/p,Qz(p)=Q/p];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+URG: [R(p)=Kp+Ki/p];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+URS: append(USZ,URG);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+TRZ:subst(URS,T11);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+US:S(p)=1/(t*p+1);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+USP:US,POP;USN:US,PON;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+TK:subst([USP,USN],TRZ);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+TK:factor(subst([USP,USN],TRZ));
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+load("coma");
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num:[D=1.5,Q=0.1,t=0.1,Kp=1,Ki=100,w0=310];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+TKN:TK[1],Num;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+TKO:makelist(rhs(i),i,TKN);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+TKLI:makelist(nilt(i,p,t),i,TKO);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d(TKLI,[t,0,10]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

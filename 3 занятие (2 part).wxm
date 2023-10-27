@@ -1,0 +1,65 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+/*Анализ линейных цепей переменного тока в переходных процессах и в установившемся режиме*/;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+kill(all);
+ratprint:false;
+eq:[
+    iL-iC-iNg,
+    -ε +iL*(RL+p*L)+iC/(p*C),
+    -iC/(p*C)+iNg*Rn,
+    Un=iNg*Rn
+];
+sln:solve(eq,[Un,iL,iC,iNg]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1:Un,sln;
+V2:A*sin(2*%pi*f0*t+ψ0);
+V2P:laplace(V2,t,p);
+V12:factor(V1*V2P); /*Выходной сигнал*/
+MC:(w0^2+p^2)/w0;
+MC:MC,w0=2*%pi*f0;
+V3:V12*MC;
+V4:p=%i*2*%pi*f0;
+V5:V3,V4;
+V6:factor(cabs(V5));
+V7:carg(V5);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+Num:[f0=50,A=310,ψ0=-0.3,C=300e-6,L=100e-6,Rn=100,RL=10,ε=1];
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V12N:V12,Num;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V12G:realpart(ilt(V12N,p,t)); /*входной сигнал по t*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V2N:V2,Num;
+V6N:float(V6),Num;
+V7N:float(V7),Num;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d([V6N,V12G,V2N],[t,0,0.05]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

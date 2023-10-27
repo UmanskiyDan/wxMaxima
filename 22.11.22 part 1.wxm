@@ -1,0 +1,25 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+/*Метод гармонического ...*/
+F10:0;
+F11:A;
+M:3;
+V1:a[0]/2+sum(a[n]*cos(2*%pi*n*t/T)+b[n]*sin(2*%pi*n*t/T),n,1,N);
+V2:a[0]=2/T*(integrate(F11,t,T/2,T));
+V3:a[n]=expand(2/T*integrate(F11*cos(2*%pi*n*t/T),t,T/2,T));
+V3:makelist(subst(n=i,a[n]=expand(2/T*integrate(F11*cos(2*%pi*n*t/T),t,T/2,T))),i,1,M);
+V4:makelist(subst(n=i,b[n]=expand(2/T*integrate(F11*sin(2*%pi*n*t/T),t,T/2,T))),i,1,M);
+V5:expand(subst(N=M,V1));
+V6:ev(V5,simpsum=true);
+V7:V6,[V2,V3,V4];
+Num:[T=0.1,A=3.3];
+V8:V7,Num;
+wxplot2d(V8,[t,0,0.2]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$

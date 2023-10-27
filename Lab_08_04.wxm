@@ -1,0 +1,77 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+load(coma);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1:A*exp(-%tau*p);
+V2:taylor(V1,p,0,2);
+V3:pade(V2,1,1);
+V4:[];
+V4:append(V3,V4);
+V4:[];
+
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+for i:1 thru 5 do
+( M1:taylor(V1,p,0,i*2),
+ M2:pade(M1,i,i),
+ V4:append(M2,V4)
+);
+V4;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V5:p=%i*2*%pi*f;
+V6:V1,V5;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V7:demoivre(V6);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V8:V4,V5;
+V9:factor(cabs(V8)); /*АЧХ*/
+V10:factor(carg(V8));/*Семейство КЧХ*/
+Num:[A=3.3,%tau=0.1];
+V10n:V10,Num;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d(V10n,[f,0,40],[legend,false]);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V11:V4,Num;
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V12:makelist(i/p,i,V11);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V13:makelist(nilt(i,p,t),i,V12);
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+wxplot2d(V13,[t,0,0.5]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
