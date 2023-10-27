@@ -1,0 +1,37 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+eq:[-E+iR1*(R1+p*2)+iC/(p*C),
+-iC/(p*C)+iR2*R2,
+iR1-iC-iR2,
+Un=R2*iR2];
+sln:solve(eq,[iR1,iR2,iC,Un]);
+V1:Un,sln;
+V2:p=2*fd*((z-1)/(z+1));
+V3:factor(V1),V2;
+V4:[y=e*Ou*Au,e=x-y];
+V5:y,solve(V4,[y,e]);
+V6:Au=sum(b[i]*z^i,i,0,3)/sum(a[i]*z^i,i,0,3);
+V7:Ou=V3;
+V8:factor(V5),[V7,V6];    /*Простейшая замкнатуя апериадическая система управления 2 порядка*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V9:factor(V8),z=1;
+V10:denom(V8);
+V11:expand(V10);
+collectterms(V11,z);
+V12:makelist(coeff(V11,z,i),i,0,hipow(V11,z));
+V13:makelist(V12[i]=0,i,hipow(V11,z)+1);
+V14:[V12[hipow(V11,z)]=1];
+V15:append(V13,V14);
+V16:solve(V15,[a[0],a[1],a[2],b[0],b[1],b[2]]);
+V17:solve(V14);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
