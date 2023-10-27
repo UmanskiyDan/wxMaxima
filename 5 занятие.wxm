@@ -1,0 +1,28 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 22.04.0 ] */
+/* [wxMaxima: input   start ] */
+kill(all);
+/*Преобразование Пария-Горева*/
+S:A*sin(w*t+Ψ0);
+C:A*cos(w*t+Ψ0);
+BS:sin(w*t);
+BC:cos(w*t);
+trigreduce(d=S*BS+C*BC);
+trigreduce(q=S*BC-C*BS);
+ABDQ:[q=α*cos(w*t)-β*sin(w*t),
+d=α*sin(w*t)+β*cos(w*t)];
+AB:[α=S,β=C];
+trigreduce(ABDQ),AB; /*Не зависит от t*/
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+V1:[d=α*s+β*c,
+q=α*c-β*s];
+V2:solve(V1,[α,β]);
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 22.04.0"$
